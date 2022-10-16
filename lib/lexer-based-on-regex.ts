@@ -136,6 +136,7 @@ class Lexer {
     this.lineno = 1;
     this.colno = 1;
     this.done = false;
+    if (this.lex_regex) this.lex_regex.lastIndex = 0;
   }
 
   next(): string | false {
