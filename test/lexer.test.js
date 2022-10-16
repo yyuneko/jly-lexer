@@ -252,7 +252,7 @@ describe("#lexer-based-on-regex", () => {
                 // console.log(token.toString());
             }
         } while (!lexer.done);
-        expect(str.split("\n").map(item=>item.replace(/\s+$/,"")).join("\n")).toBe(`program test {
+        expect(str.split("\n").map(item => item.replace(/\s+$/, "")).join("\n")).toBe(`program test {
 // 基本功能
 int a [ 10 ] [ 20 ] [ 5 ] , i , j , k ;
 float ? b , ? c = 1.2 ;
