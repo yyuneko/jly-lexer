@@ -263,4 +263,36 @@ for ( i in 1 .. 20 ) a [ 3 ] [ i - 1 ] [ 0 ] = k + c ;
 }
 }`);
     });
+    describe("宏",()=>{
+        const dict={
+            rules:[
+                {name: "open_directive",r: /%%\{/},
+                {name: "type_directive",r: "{open_directive}((?:(?!}%%)[^:.])*)"},
+                {name:"close_directive",r: "{type_directive}}%%"}
+            ],
+            tokens:["open_directive","type_directive","close_directive"]
+        };
+        test("%%{",()=>{
+            expect(new Lexer(dict,"%%{").lex()).toBe("open_directive");
+        });
+        test("%%{123",()=>{
+            expect(new Lexer(dict,"%%{123").lex()).toBe("type_directive");
+        });
+        test("%%{123}%%%%{",()=>{
+            const lexer=new Lexer(dict,"%%{123}%%%%{");
+            expect(lexer.lex()).toBe("close_directive");
+            expect(lexer.lex()).toBe("open_directive");
+            expect(lexer.lex()).toBe("EOF");
+        });
+        test("%%{123%%{",()=>{
+            const lexer=new Lexer(dict,"%%{123%%{");
+            expect(lexer.lex()).toBe("type_directive");
+            expect(lexer.lex()).toBe("EOF");
+        });
+        test("%%{123}%%",()=>{
+            const lexer=new Lexer(dict,"%%{123}%%");
+            expect(lexer.lex()).toBe("close_directive");
+            expect(lexer.lex()).toBe("EOF");
+        });
+    });
 });

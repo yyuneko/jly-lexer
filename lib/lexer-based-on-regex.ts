@@ -73,6 +73,11 @@ class Lexer {
           .split(`{${macroName}}`)
           .join(`(${dict.macros?.[macroName] ?? ""})`);
       });
+      dict.rules.slice(0,i).forEach(rule=>{
+        dict.rules[i].r=(dict.rules[i].r as string)
+            .split(`{${rule.name}}`)
+            .join(`(${rule.r})`);
+      });
     }
     return dict.rules;
   }

@@ -7,7 +7,7 @@
   "repository": {
     "url": "https://github.com/yyuneko/jly-lexer"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "jest": {
     "extensionsToTreatAsEsm": [
       ".ts"
